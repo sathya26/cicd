@@ -1,31 +1,20 @@
-name: CI Pipeline
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
 
-on:
-  push:
-    branches:
-      - main
+  - name: Set up Python
+    uses: actions/setup-python@v5
+    with:
+      python-version: "3.11"
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+  - name: Install dependencies
+    run: |
+      pip install -r requirements.txt
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  - name: Run tests
+    run: |
+      pytest
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
-    - name: Run app test
-      run: |
-        python app.py
-
-    - name: Build Docker image
-      run: |
-        docker build -t cicd-app .
+  - name: Build Docker image
+    run: |
+      docker build -t cicd-app .
