@@ -3,4 +3,7 @@ uvicorn
 pytest
 httpx
 prometheus-fastapi-instrumentator
+flake8
+pytest-cov
+
 
