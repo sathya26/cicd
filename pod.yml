@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cicd-pod
+  labels:
+    app: cicd-app
+spec:
+  containers:
+  - name: cicd-container
+    image: cicd-app
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 8000
