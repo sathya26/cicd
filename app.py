@@ -1,11 +1,21 @@
-from fastapi.testclient import TestClient
-from app import app
+from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 
-client = TestClient(app)
+def create_app() -> FastAPI:
+    app = FastAPI(title="CI/CD FastAPI App")
+
+    Instrumentator().instrument(app).expose(app)
+
+    @app.get("/", tags=["Root"])
+    def read_root():
+        return {"message": "CI/CD Working!"}
+
+    @app.get("/health", tags=["Health"])
+    def health():
+        return {"status": "ok"}
+
+    return app
 
 
-def test_root():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"message": "CI/CD Working!"}
+app = create_app()
