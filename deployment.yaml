@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cicd-app
+  template:
+    metadata:
+      labels:
+        app: cicd-app
+    spec:
+      containers:
+      - name: cicd-container
+        image: cicd-app
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000

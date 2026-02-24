@@ -9,7 +9,7 @@ def create_app() -> FastAPI:
 
     @app.get("/", tags=["Root"])
     def read_root():
-        return {"message": "CI/CD Working!"}
+        return {"message": "Version 2 Running!"}
 
     @app.get("/health", tags=["Health"])
     def health():
